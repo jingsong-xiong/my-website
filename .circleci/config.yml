@@ -1,0 +1,26 @@
+version: 2.1
+
+jobs:
+  test: # this can be any name you choose
+    docker:
+      - image: node:18.16.0
+    steps:
+      - checkout
+      - run:
+          name: Install pnpm package manager
+          command:
+            npm i -g pnpm@7.24.3
+      - run:
+          name: Install Dependencies
+          command:
+            pnpm install
+      - run:
+          name: Unit test
+          command: yarn test
+
+workflows:
+  version: 2
+  test_and_build:
+    jobs:
+      - test
+
